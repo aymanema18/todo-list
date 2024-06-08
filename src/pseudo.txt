@@ -1,0 +1,17 @@
+Begin
+    Create an array called projects
+
+Call createProject
+    Push a new project object (that has name and array of todos objects) to projects array
+
+Call createToDO
+    Create a todo object (that has title, description, delete, date, edit)
+    Push it to the array inside the project object inside projects array
+
+Call deleteTodo
+    Remove todo object from the array
+
+Call deleteProject
+    Remove project object from projects array
+    
+    
