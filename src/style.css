@@ -1,0 +1,170 @@
+@font-face {
+    font-family: "inter";
+    src: url(./fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --light-pink: #ffeded;
+    --dark-pink: #EED8DA;
+    --dark-gray: #4F4F33;
+}
+
+body {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100vh;
+    color: var(--dark-gray);
+    font-family: "inter", Arial, Helvetica, sans-serif;
+}
+
+section {
+    background-color: var(--light-pink);
+    display: grid;
+    grid-template-rows: repeat(2, min-content) 1fr;
+    padding: 0 16px;
+    box-shadow: 3px 0px 5px rgb(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.logo {
+    padding: 35px 0;
+    text-align: start;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.heading-and-btn-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.add-project-btn {
+    justify-self: end;
+}
+
+.nav {
+    align-self: end;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+main {
+    background-color: var(--dark-pink);
+    padding: 60px 30px;
+}
+
+.tasks-div {
+    background-color: var(--light-pink);
+    min-height: 60%;
+    max-height: 800px;
+    padding: 25px;
+    box-shadow: 0px 1px 5px rgb(0, 0, 0, 0.2);
+    border-radius: 15px
+}
+
+p {
+    margin: 0;
+}
+
+.projects-title, h1 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.add-task-btn {
+    margin-top: 15px;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+dialog {
+    color: var(--dark-gray);
+    padding: 25px;
+    background-color: var(--light-pink);
+    border: none;
+    box-shadow: 0px 1px 5px rgb(0, 0, 0, 0.2);
+    border-radius: 15px;
+    width: 300px;
+}
+
+.dl-btns-div-proj, .dl-btns-div-task, .dl-btns-div-task-edit {
+    display: flex;
+    justify-content: end;
+    padding-top: 15px;
+    gap: 15px;
+    font-size: 15px;
+}
+
+input[type="text"] {
+    padding: 0.4em;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+.proj-cancel, .task-cancel, .task-cancel-edit {
+    font-weight: 400;
+}
+
+.proj-add, .task-add, .task-add-edit {
+    font-weight: bold;
+}
+
+.task-add, .proj-add, .task-add-edit {
+    font-family: 'inter', Arial, Helvetica, sans-serif;
+    border: none;
+    background: none;
+    font-size: 15px;
+    color: var(--dark-gray);
+}
+
+.project {
+    display: flex;
+    padding-left: 10px;
+    justify-content: space-between;
+}
+
+.title-desc-div, .date-dl-edit-div {
+    display: flex;
+    gap: 25px;
+}
+
+.title-desc-div {
+    padding-left: 7px;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: min-content 1fr max-content;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--dark-gray);
+}
+
+.check-btn {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

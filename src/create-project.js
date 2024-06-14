@@ -1,7 +1,9 @@
+import { idGenerator } from "./id-generator";
+
 const projects = [];
 
 function createProject(name){
-    projects.push({name, todos: []});
+    projects.push({name, id: idGenerator(), todos: []});
 }
 
-export {createProject, projects};
+export { createProject, projects };
