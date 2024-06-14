@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list</title>
+<script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script></head>
+<body>
+    <section>
+        <div class="logo">TODOS</div>
+        <div class="projects-div">
+            <div class="heading-and-btn-div">
+                <div class="projects-heading">Projects</div>
+                <dib class="btn add-project-btn">+</dib>
+            </div>
+        </div>
+        <dialog class="project-dialog">
+            <div class="pr-dl-div">
+                <form action="">
+                    <div class="input-div">
+                        <label for="project-name">Project name:*</label>
+                        <input type="text" id="project-name" placeholder="Project name" required>
+                    </div>
+                    <div class="dl-btns-div-proj">
+                        <p class="btn proj-cancel">Cancel</p>
+                        <button class="btn proj-add">Add project</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        <div class="nav">
+            <ul>
+                <li class="btn home">Home</li>
+                <li class="btn about">About</li>
+            </ul>
+        </div>
+    </section>
+    <main>
+        <div class="tasks-div">
+            <p class="projects-title">Project name</p>
+            <div class="tasks"></div>
+        </div>
+        <dialog class="task-dialog">
+            <div class="task-dl-div">
+                <form action="">
+                    <div class="input-div">
+                        <label for="task-name">Task:*</label>
+                        <input type="text" id="task-name" placeholder="Eat an Apple" required>
+                    </div>
+                    <div class="input-div">
+                        <label for="task-description">Description (optional):</label>
+                        <input type="text" id="task-description">
+                    </div>
+                    <div class="input-div">
+                        <label for="task-date">Date:*</label>
+                        <input type="date" id="task-date" required>
+                    </div>
+                    <div class="input-div">
+                        <label for="task-priority">Priority:*</label>
+                        <select name="priority" id="task-priority" required>
+                            <option value="priority1">Priority 1</option>
+                            <option value="priority2">Priority 2</option>
+                            <option value="priority3">Priority 3</option>
+                        </select>
+                        <div class="dl-btns-div-task">
+                            <p class="btn task-cancel">Cancel</p>
+                            <button class="btn task-add">Add Task</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        <dialog class="task-dialog-edit">
+            <div class="task-dl-div-edit">
+                <form action="">
+                    <div class="input-div">
+                        <label for="task-name-edit">Task:*</label>
+                        <input type="text" id="task-name-edit" placeholder="Eat an Apple" required>
+                    </div>
+                    <div class="input-div">
+                        <label for="task-description-edit">Description (optional):</label>
+                        <input type="text" id="task-description-edit">
+                    </div>
+                    <div class="input-div">
+                        <label for="task-date-edit">Date:*</label>
+                        <input type="date" id="task-date-edit" required>
+                    </div>
+                    <div class="input-div">
+                        <label for="task-priority-edit">Priority:*</label>
+                        <select name="priority" id="task-priority-edit" required>
+                            <option value="priority1">Priority 1</option>
+                            <option value="priority2">Priority 2</option>
+                            <option value="priority3">Priority 3</option>
+                        </select>
+                        <div class="dl-btns-div-task-edit">
+                            <p class="btn task-cancel-edit">Cancel</p>
+                            <button class="btn task-add-edit">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+    </main>
+</body>
+</html>
