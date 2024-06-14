@@ -5,6 +5,7 @@ import { deleteTodo } from "./delete-todo";
 import { deleteProject } from "./delete-project";
 import { isComplete } from "./complete-task";
 import { editTask } from "./edit-task";
+import { storeProjects } from "./store-project";
 
 const today = new Date().toISOString().split('T')[0];
 document.querySelector('#task-date').setAttribute('min', today);
@@ -27,6 +28,7 @@ function initDisplay() {
         tasksDiv.appendChild(h1);
         tasksDiv.appendChild(p);
 
+        
         homeBtn.addEventListener('click', () => {
             const tasksDiv = document.querySelector('.tasks-div');
             const h1 = document.createElement('h1');
@@ -42,9 +44,42 @@ function initDisplay() {
             tasksDiv.appendChild(h1);
             tasksDiv.appendChild(p);
         })
+        showProjects();
     })
 }
 
+function showProjects() {
+    const projectsData = JSON.parse(localStorage.getItem('projects'));
+    const projectsContainer = document.querySelector('.projects-div');
+    console.log(projectsData);
+    for (let proj of projectsData) {
+            projects.push(proj);
+            const project = document.createElement('div');
+            const projectEditBtn = document.createElement('div');
+            const projectDlBtn = document.createElement('div');
+            const projTitle = document.createElement('p');
+            projectEditBtn.setAttribute('data-id', proj.id);
+            projectDlBtn.setAttribute('data-id', proj.id);
+            project.setAttribute('data-id', proj.id);
+            projTitle.classList.add('btn');
+            projTitle.classList.add('project-title');
+            projectDlBtn.classList.add('btn');
+            projectDlBtn.classList.add('proj-delete-btn');
+            projectEditBtn.classList.add('btn');
+            project.classList.add('project');
+            projTitle.textContent = proj.name;
+            projectDlBtn.textContent = 'X';
+            projectEditBtn.textContent = 'E';
+            
+            project.appendChild(projTitle);
+            project.appendChild(projectEditBtn);
+            project.appendChild(projectDlBtn);
+            projectsContainer.appendChild(project);
+
+            displayDeleteProject(projectDlBtn);
+            clickingOnProject(projTitle);
+        }
+}
 
 function displayProject() {
     const addProjDl = document.querySelector('.proj-add');
@@ -143,6 +178,7 @@ function displayProject() {
         clickingOnProject(title);
         projName.value = '';
         dialogPr.close();
+        storeProjects();
     })
 }
 
@@ -189,6 +225,7 @@ function displayTodo(id) {
         taskDesc.value = ''; 
         taskTitle.value = '';
         dialogTask.close();
+        storeProjects();
     });
     
 }
@@ -292,6 +329,7 @@ function displayDeleteTodo(deleteDiv, index, deleteId) {
         const task = document.querySelector(`div[data-dl-id="${deleteId}"]`);
         task.remove();
         deleteTodo(todosIndex, index);
+        storeProjects();
     })
 }
 
@@ -303,6 +341,7 @@ function displayDeleteProject(deleteDiv) {
         event.target.parentElement.remove();
         deleteTasks(projectIndex);
         deleteProject(projectIndex);
+        storeProjects();
         
     })
 }
@@ -322,8 +361,10 @@ function deleteTasks(projectIndex) {
 }
 
 
-function clickingOnProject(project) {
+function clickingOnProject(project, id) {
     const index = projects.findIndex((obj) => {
+        console.log(obj.id);
+        console.log(project.parentElement.getAttribute('data-id'));
         return obj.id === project.parentElement.getAttribute('data-id');
     });
 
@@ -445,4 +486,4 @@ function updateTask(todo, checkBtn, title, description, theDate, titleEdit, desc
 
 }
 
-export { displayProject, initDisplay };
+export { displayProject, initDisplay, showProjects };
