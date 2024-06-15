@@ -100,7 +100,7 @@ dialog {
     width: 300px;
 }
 
-.dl-btns-div-proj, .dl-btns-div-task, .dl-btns-div-task-edit {
+.dl-btns-div-proj, .dl-btns-div-task, .dl-btns-div-task-edit, .dl-btns-div-proj-edit {
     display: flex;
     justify-content: end;
     padding-top: 15px;
@@ -122,11 +122,11 @@ input[type="text"] {
     font-weight: 400;
 }
 
-.proj-add, .task-add, .task-add-edit {
+.proj-add, .task-add, .task-add-edit, .proj-add-edit {
     font-weight: bold;
 }
 
-.task-add, .proj-add, .task-add-edit {
+.task-add, .proj-add, .task-add-edit, .proj-add-edit {
     font-family: 'inter', Arial, Helvetica, sans-serif;
     border: none;
     background: none;
@@ -138,6 +138,12 @@ input[type="text"] {
     display: flex;
     padding-left: 10px;
     justify-content: space-between;
+}
+
+.pj-dl-ed-container {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
 }
 
 .title-desc-div, .date-dl-edit-div {

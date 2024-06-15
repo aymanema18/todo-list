@@ -1,4 +1,4 @@
-import { createProject, projects } from "./create-project";
+import { projects } from "./create-project";
 
 function editTask(projectIndex, taskIndex, title, description, date, priority) {
     projects[projectIndex].todos[taskIndex].title = title;

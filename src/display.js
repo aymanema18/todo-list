@@ -6,6 +6,7 @@ import { deleteProject } from "./delete-project";
 import { isComplete } from "./complete-task";
 import { editTask } from "./edit-task";
 import { storeProjects } from "./store-project";
+import { editProject } from "./edit-project";
 
 const today = new Date().toISOString().split('T')[0];
 document.querySelector('#task-date').setAttribute('min', today);
@@ -44,6 +45,7 @@ function initDisplay() {
             tasksDiv.appendChild(h1);
             tasksDiv.appendChild(p);
         })
+        displayProject();
         showProjects();
     })
 }
@@ -58,24 +60,29 @@ function showProjects() {
             const projectEditBtn = document.createElement('div');
             const projectDlBtn = document.createElement('div');
             const projTitle = document.createElement('p');
+            const edDlContainer = document.createElement('div');
             projectEditBtn.setAttribute('data-id', proj.id);
             projectDlBtn.setAttribute('data-id', proj.id);
             project.setAttribute('data-id', proj.id);
             projTitle.classList.add('btn');
             projTitle.classList.add('project-title');
+            edDlContainer.classList.add('pj-dl-ed-container');
             projectDlBtn.classList.add('btn');
             projectDlBtn.classList.add('proj-delete-btn');
             projectEditBtn.classList.add('btn');
+            projectEditBtn.classList.add('project-edit-btn');
             project.classList.add('project');
             projTitle.textContent = proj.name;
             projectDlBtn.textContent = 'X';
             projectEditBtn.textContent = 'E';
             
             project.appendChild(projTitle);
-            project.appendChild(projectEditBtn);
-            project.appendChild(projectDlBtn);
+            edDlContainer.appendChild(projectEditBtn);
+            edDlContainer.appendChild(projectDlBtn);
+            project.appendChild(edDlContainer);
             projectsContainer.appendChild(project);
 
+            displayEditProject(projectEditBtn);
             displayDeleteProject(projectDlBtn);
             clickingOnProject(projTitle);
         }
@@ -101,84 +108,145 @@ function displayProject() {
         dialogPr.close();
     })
 
+    cnlTaskBtn.addEventListener('click', () => {
+        const taskTitle = document.querySelector('#task-name');
+        const taskDesc = document.querySelector('#task-description');
+        const taskDate = document.querySelector('#task-date');
+        const taskPriority = document.querySelector('#task-priority');
+        taskPriority.value = 'priority1';
+        taskDate.value = '';
+        taskDesc.value = ''; 
+        taskTitle.value = '';
+        dialogTask.close();
+    })
+
 
     addProjDl.addEventListener('click', (event) => {
         event.preventDefault();
         const name = document.querySelector('#project-name').value;
-        const project = document.createElement('div');
-        const title = document.createElement('p');
-        const tasks = document.createElement('div');
-        const oldTasks = document.querySelector('.tasks');
-        const deleteDiv = document.createElement('div');
-        const addTask = document.createElement('div');
-        const tasksDiv = document.querySelector('.tasks-div');
-        const oldPjTl = document.querySelector('.projects-title');
-        const oldAddTask = document.querySelector('.add-task-btn');
-        const projTitle = document.createElement('p');
-        const projName = document.querySelector('#project-name');
-        let id;
-        deleteDiv.textContent = 'X';
-        deleteDiv.classList.add('btn');
-        deleteDiv.classList.add('proj-delete-btn');
-        
-        if (oldTasks) {
-            oldTasks.remove();
-        }
-        
-        if (oldAddTask) {
-            oldAddTask.remove();
-        }
+        if (name.length !== 0 && name.length < 11) {
+            const project = document.createElement('div');
+            const title = document.createElement('p');
+            const tasks = document.createElement('div');
+            const oldTasks = document.querySelector('.tasks');
+            const deleteDiv = document.createElement('div');
+            const addTask = document.createElement('div');
+            const tasksDiv = document.querySelector('.tasks-div');
+            const oldPjTl = document.querySelector('.projects-title');
+            const oldAddTask = document.querySelector('.add-task-btn');
+            const projTitle = document.createElement('p');
+            const projName = document.querySelector('#project-name');
+            const edDlContainer = document.createElement('div');
+            const projectEditBtn = document.createElement('div');
+            let id;
+            projectEditBtn.textContent = 'E';
+            deleteDiv.textContent = 'X';
+            projectEditBtn.classList.add('btn');
+            projectEditBtn.classList.add('project-edit-btn');
+            deleteDiv.classList.add('btn');
+            deleteDiv.classList.add('proj-delete-btn');
+            
+            if (oldTasks) {
+                oldTasks.remove();
+            }
+            
+            if (oldAddTask) {
+                oldAddTask.remove();
+            }
+    
+            if (oldPjTl) {
+                oldPjTl.remove();
+            }
+    
+            addTask.addEventListener('click', () => {
+                dialogTask.showModal();
+            })
+            displayEditProject(projectEditBtn);
+            createProject(name);
+            addTask.classList.add('btn');
+            addTask.classList.add('add-task-btn');
+            edDlContainer.classList.add('pj-dl-ed-container');
+            projTitle.classList.add('projects-title');
+            tasks.classList.add('tasks');
+            projTitle.textContent = name;
+            addTask.textContent = '+ Add task';
+            title.textContent = name;
+            title.classList.add('project-title');
+            for (let obj of projects) {
+                id = obj.id; 
+            }
+            tasksDiv.innerHTML = '';
+            project.setAttribute('data-id', id);
+            projTitle.setAttribute('data-id', id);
+            addTask.setAttribute('data-id', id);
+            tasksDiv.appendChild(projTitle);
+            tasksDiv.appendChild(tasks);
+            tasksDiv.appendChild(addTask);
+            project.classList.add('btn');
+            project.classList.add('project');
+            project.appendChild(title);
+            edDlContainer.appendChild(projectEditBtn);
+            edDlContainer.appendChild(deleteDiv);
+            project.appendChild(edDlContainer);
+            projectsDiv.appendChild(project);
+            displayTodo(id);
+            displayDeleteProject(deleteDiv);
+            clickingOnProject(title);
+            projName.value = '';
+            dialogPr.close();
+            storeProjects();
 
-        if (oldPjTl) {
-            oldPjTl.remove();
         }
+    })
+}
 
-        addTask.addEventListener('click', () => {
-            dialogTask.showModal();
-        })
-      
-        cnlTaskBtn.addEventListener('click', () => {
-            const taskTitle = document.querySelector('#task-name');
-            const taskDesc = document.querySelector('#task-description');
-            const taskDate = document.querySelector('#task-date');
-            const taskPriority = document.querySelector('#task-priority');
-            taskPriority.value = 'priority1';
-            taskDate.value = '';
-            taskDesc.value = ''; 
-            taskTitle.value = '';
-            dialogTask.close();
-        })
-        
-        createProject(name);
-        addTask.classList.add('btn');
-        addTask.classList.add('add-task-btn');
-        projTitle.classList.add('projects-title');
-        tasks.classList.add('tasks');
-        projTitle.textContent = name;
-        addTask.textContent = '+ Add task';
-        title.textContent = name;
-        title.classList.add('project-title');
-        for (let obj of projects) {
-            id = obj.id; 
+function displayEditProject(editBtn) {
+    const projectDL = document.querySelector('.project-dialog-edit');
+    
+    editBtn.addEventListener('click', () => {
+        projectDL.showModal();
+        const editBtnContainer = document.querySelector('.dl-btns-div-proj-edit');
+        const oldEdBtnDl = document.querySelector('.proj-add-edit');
+        const edBtnDl = document.createElement('button');
+        const clProjEdBtn = document.querySelector('.proj-cancel-edit');
+
+        if (oldEdBtnDl) {
+            oldEdBtnDl.remove();
         }
-        tasksDiv.innerHTML = '';
-        project.setAttribute('data-id', id);
-        projTitle.setAttribute('data-id', id);
-        addTask.setAttribute('data-id', id);
-        tasksDiv.appendChild(projTitle);
-        tasksDiv.appendChild(tasks);
-        tasksDiv.appendChild(addTask);
-        project.classList.add('btn');
-        project.classList.add('project');
-        project.appendChild(title);
-        project.appendChild(deleteDiv);
-        projectsDiv.appendChild(project);
-        displayTodo(id);
-        displayDeleteProject(deleteDiv);
-        clickingOnProject(title);
-        projName.value = '';
-        dialogPr.close();
-        storeProjects();
+        edBtnDl.classList.add('btn');
+        edBtnDl.classList.add('proj-add-edit');
+        edBtnDl.setAttribute('data-id', editBtn.parentElement.parentElement.getAttribute('data-id'));
+        edBtnDl.textContent = 'Edit';
+        editBtnContainer.appendChild(edBtnDl);
+
+        edBtnDl.addEventListener('click', (event) => {
+            const name = document.querySelector('#project-name-edit').value;
+            event.preventDefault();
+            if (name.length !== 0 && name.length < 11) {
+                const projDiv = document.querySelectorAll('.project');
+                const projIndex = Array.prototype.slice.call(projDiv).findIndex((obj) => {
+                    return obj.getAttribute('data-id') === edBtnDl.getAttribute('data-id');
+                })
+                const projTitle = projDiv[projIndex].querySelector('p');
+                const index = projects.findIndex((obj) => {
+                    return obj.id === edBtnDl.getAttribute('data-id');
+                })
+                editProject(index, name);
+                storeProjects();
+                projTitle.textContent = name;
+                document.querySelector('#project-name-edit').value = '';
+                projectDL.close();
+
+            }
+        })
+
+        clProjEdBtn.addEventListener('click', () => {
+            document.querySelector('#project-name-edit').value = '';
+            projectDL.close();
+        })
+
+        
+        
     })
 }
 
@@ -204,28 +272,31 @@ function displayTodo(id) {
         const dateInput = document.querySelector('#task-date').value;
         const description = document.querySelector('#task-description').value;
         const priority = document.querySelector('#task-priority').value;
-        const dlId = idGenerator();
-        const taskTitle = document.querySelector('#task-name');
-        const taskDesc = document.querySelector('#task-description');
-        const taskDate = document.querySelector('#task-date');
-        const taskPriority = document.querySelector('#task-priority');
-        // let project;
-        const index = projects.findIndex((obj) => obj.id === id);
-        // const index = projects.findIndex((obj) => obj.id === addTask.parentElement.getAttribute("data-id"));
-        createTodo(name, dateInput, index, description, dlId, priority);
-        // for (let proj of projectsDOM) {
-            //     if (proj.getAttribute('data-id') === addTask.getAttribute('data-id')) {
-                //         project = proj;
-                //     }
-        // }
-        
-        showTasks(index, id, dlId);
-        taskPriority.value = 'priority1';
-        taskDate.value = '';
-        taskDesc.value = ''; 
-        taskTitle.value = '';
-        dialogTask.close();
-        storeProjects();
+        if (name.length !== 0 && name.length < 53 && dateInput !== '' && description.length < 55) {
+            const dlId = idGenerator();
+            const taskTitle = document.querySelector('#task-name');
+            const taskDesc = document.querySelector('#task-description');
+            const taskDate = document.querySelector('#task-date');
+            const taskPriority = document.querySelector('#task-priority');
+            // let project;
+            const index = projects.findIndex((obj) => obj.id === id);
+            // const index = projects.findIndex((obj) => obj.id === addTask.parentElement.getAttribute("data-id"));
+            createTodo(name, dateInput, index, description, dlId, priority);
+            // for (let proj of projectsDOM) {
+                //     if (proj.getAttribute('data-id') === addTask.getAttribute('data-id')) {
+                    //         project = proj;
+                    //     }
+            // }
+            
+            showTasks(index, id, dlId);
+            taskPriority.value = 'priority1';
+            taskDate.value = '';
+            taskDesc.value = ''; 
+            taskTitle.value = '';
+            dialogTask.close();
+            storeProjects();
+
+        }
     });
     
 }
@@ -336,9 +407,9 @@ function displayDeleteTodo(deleteDiv, index, deleteId) {
 function displayDeleteProject(deleteDiv) {
     deleteDiv.addEventListener('click', (event) => {
         const projectIndex = projects.findIndex((obj) => {
-            return obj.id === event.target.parentElement.getAttribute('data-id');
+            return obj.id === event.target.parentElement.parentElement.getAttribute('data-id');
         })
-        event.target.parentElement.remove();
+        event.target.parentElement.parentElement.remove();
         deleteTasks(projectIndex);
         deleteProject(projectIndex);
         storeProjects();
@@ -354,8 +425,10 @@ function deleteTasks(projectIndex) {
             task.remove();
         }
     }
-    if (projects[projectIndex].id === addTask.getAttribute('data-id')) {
-        addTask.remove();
+    if (addTask) {
+        if (projects[projectIndex].id === addTask.getAttribute('data-id')) {
+            addTask.remove();
+        }
     }
 
 }
@@ -458,12 +531,15 @@ function displayEdit(editBtn, index, todo, checkBtn, title, description, theDate
             const descEdit = document.querySelector('#task-description-edit');
             const dateEdit = document.querySelector('#task-date-edit');
             const priorityEdit = document.querySelector('#task-priority-edit');
-            const taskIndex = projects[index].todos.findIndex((obj) => {
-                return obj.deleteId === todo.deleteId;
-            })
-            editTask(index, taskIndex, titleEdit.value, descEdit.value,  dateEdit.value, priorityEdit.value);
-            updateTask(todo, checkBtn, title, description, theDate, titleEdit, descEdit,  dateEdit);
-            dialogTaskEdit.close();
+            if (titleEdit.length !== 0 && titleEdit.length < 53 && dateEdit !== '' && descEdit.length < 55) {
+                const taskIndex = projects[index].todos.findIndex((obj) => {
+                    return obj.deleteId === todo.deleteId;
+                })
+                editTask(index, taskIndex, titleEdit.value, descEdit.value,  dateEdit.value, priorityEdit.value);
+                updateTask(todo, checkBtn, title, description, theDate, titleEdit, descEdit,  dateEdit);
+                dialogTaskEdit.close();
+
+            }
         })
     })
     

@@ -9,6 +9,5 @@ window.projects = projects;
 
 
 initDisplay();
-displayProject();
 
 
