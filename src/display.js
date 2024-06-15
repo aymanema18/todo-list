@@ -73,8 +73,8 @@ function showProjects() {
             projectEditBtn.classList.add('project-edit-btn');
             project.classList.add('project');
             projTitle.textContent = proj.name;
-            projectDlBtn.textContent = 'X';
-            projectEditBtn.textContent = 'E';
+            projectDlBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="trash-can" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>';
+            projectEditBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
             
             project.appendChild(projTitle);
             edDlContainer.appendChild(projectEditBtn);
@@ -139,8 +139,8 @@ function displayProject() {
             const edDlContainer = document.createElement('div');
             const projectEditBtn = document.createElement('div');
             let id;
-            projectEditBtn.textContent = 'E';
-            deleteDiv.textContent = 'X';
+            projectEditBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
+            deleteDiv.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="trash-can" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>';
             projectEditBtn.classList.add('btn');
             projectEditBtn.classList.add('project-edit-btn');
             deleteDiv.classList.add('btn');
@@ -322,8 +322,8 @@ function showTasks(index, id, dlId, counter) {
     title.textContent = todo.title;
     theDate.textContent = todo.date;
     description.textContent = todo.description;
-    editBtn.textContent = 'E';
-    deleteTaskDiv.textContent = 'X';
+    editBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
+    deleteTaskDiv.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="trash-can" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>';
     taskDiv.classList.add('task');
     checkBtn.classList.add('btn');
     checkBtn.classList.add('check-btn');
