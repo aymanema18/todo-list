@@ -61,39 +61,42 @@ function initDisplay() {
 function showProjects() {
     const projectsData = JSON.parse(localStorage.getItem('projects'));
     const projectsContainer = document.querySelector('.projects-div');
-    console.log(projectsData);
-    for (let proj of projectsData) {
-            projects.push(proj);
-            const project = document.createElement('div');
-            const projectEditBtn = document.createElement('div');
-            const projectDlBtn = document.createElement('div');
-            const projTitle = document.createElement('p');
-            const edDlContainer = document.createElement('div');
-            projectEditBtn.setAttribute('data-id', proj.id);
-            projectDlBtn.setAttribute('data-id', proj.id);
-            project.setAttribute('data-id', proj.id);
-            projTitle.classList.add('btn');
-            projTitle.classList.add('project-title');
-            edDlContainer.classList.add('pj-dl-ed-container');
-            projectDlBtn.classList.add('btn');
-            projectDlBtn.classList.add('proj-delete-btn');
-            projectEditBtn.classList.add('btn');
-            projectEditBtn.classList.add('project-edit-btn');
-            project.classList.add('project');
-            projTitle.textContent = proj.name;
-            projectDlBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="trash-can" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>';
-            projectEditBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
-            
-            project.appendChild(projTitle);
-            edDlContainer.appendChild(projectEditBtn);
-            edDlContainer.appendChild(projectDlBtn);
-            project.appendChild(edDlContainer);
-            projectsContainer.appendChild(project);
+    if (projectsData) {
+        console.log(projectsData);
+        for (let proj of projectsData) {
+                projects.push(proj);
+                const project = document.createElement('div');
+                const projectEditBtn = document.createElement('div');
+                const projectDlBtn = document.createElement('div');
+                const projTitle = document.createElement('p');
+                const edDlContainer = document.createElement('div');
+                projectEditBtn.setAttribute('data-id', proj.id);
+                projectDlBtn.setAttribute('data-id', proj.id);
+                project.setAttribute('data-id', proj.id);
+                projTitle.classList.add('btn');
+                projTitle.classList.add('project-title');
+                edDlContainer.classList.add('pj-dl-ed-container');
+                projectDlBtn.classList.add('btn');
+                projectDlBtn.classList.add('proj-delete-btn');
+                projectEditBtn.classList.add('btn');
+                projectEditBtn.classList.add('project-edit-btn');
+                project.classList.add('project');
+                projTitle.textContent = proj.name;
+                projectDlBtn.textContent = 'X';
+                projectEditBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
+                
+                project.appendChild(projTitle);
+                edDlContainer.appendChild(projectEditBtn);
+                edDlContainer.appendChild(projectDlBtn);
+                project.appendChild(edDlContainer);
+                projectsContainer.appendChild(project);
+                
+                displayEditProject(projectEditBtn);
+                displayDeleteProject(projectDlBtn);
+                clickingOnProject(projTitle);
+            }
 
-            displayEditProject(projectEditBtn);
-            displayDeleteProject(projectDlBtn);
-            clickingOnProject(projTitle);
-        }
+    }
 }
 
 function displayProject() {
@@ -148,12 +151,12 @@ function displayProject() {
             const projectEditBtn = document.createElement('div');
             let id;
             projectEditBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
-            deleteDiv.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="trash-can" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>';
+            deleteDiv.textContent = 'X';
             projectEditBtn.classList.add('btn');
             projectEditBtn.classList.add('project-edit-btn');
             deleteDiv.classList.add('btn');
             deleteDiv.classList.add('proj-delete-btn');
-            
+
             if (oldTasks) {
                 oldTasks.remove();
             }
@@ -331,7 +334,7 @@ function showTasks(index, id, dlId, counter) {
     theDate.textContent = todo.date;
     description.textContent = todo.description;
     editBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="edit-pen" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>';
-    deleteTaskDiv.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="trash-can" viewBox="0 0 24 24"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>';
+    deleteTaskDiv.textContent = 'X';
     taskDiv.classList.add('task');
     checkBtn.classList.add('btn');
     checkBtn.classList.add('check-btn');
@@ -367,6 +370,7 @@ function showTasks(index, id, dlId, counter) {
     }
     checkBtn.addEventListener('click', () => {
         isChecked(checkBtn, index, dlId);
+        storeProjects();
     })
     
     
@@ -422,6 +426,7 @@ function displayDeleteProject(deleteDiv) {
         deleteProject(projectIndex);
         storeProjects();
         
+        
     })
 }
 
@@ -434,8 +439,11 @@ function deleteTasks(projectIndex) {
         }
     }
     if (addTask) {
-        if (projects[projectIndex].id === addTask.getAttribute('data-id')) {
-            addTask.remove();
+        if (projects.length !== 0) {
+            if (projects[projectIndex].id === addTask.getAttribute('data-id')) {
+                addTask.remove();
+            }
+
         }
     }
 
@@ -524,8 +532,9 @@ function displayEdit(editBtn, index, todo, checkBtn, title, description, theDate
             oldAddTaskDlEditBtn.remove();
         }
         addTaskDlEditBtn = document.createElement('button');
+        addTaskDlEditBtn.classList.add('btn');
         addTaskDlEditBtn.classList.add('task-add-edit');
-        addTaskDlEditBtn.textContent = 'Add';
+        addTaskDlEditBtn.textContent = 'Edit';
         formEditBtnsContainer.appendChild(addTaskDlEditBtn);
         dialogTaskEdit.showModal();
         titleEdit.value = todo.title;
@@ -539,13 +548,14 @@ function displayEdit(editBtn, index, todo, checkBtn, title, description, theDate
             const descEdit = document.querySelector('#task-description-edit');
             const dateEdit = document.querySelector('#task-date-edit');
             const priorityEdit = document.querySelector('#task-priority-edit');
-            if (titleEdit.length !== 0 && titleEdit.length < 53 && dateEdit !== '' && descEdit.length < 55) {
+            if (titleEdit.value.length !== 0 && titleEdit.value.length < 53 && dateEdit.value !== '' && descEdit.value.length < 55) {
                 const taskIndex = projects[index].todos.findIndex((obj) => {
                     return obj.deleteId === todo.deleteId;
                 })
                 editTask(index, taskIndex, titleEdit.value, descEdit.value,  dateEdit.value, priorityEdit.value);
                 updateTask(todo, checkBtn, title, description, theDate, titleEdit, descEdit,  dateEdit);
                 dialogTaskEdit.close();
+                storeProjects();
 
             }
         })
