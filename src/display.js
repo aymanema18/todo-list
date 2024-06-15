@@ -15,6 +15,7 @@ document.querySelector('#task-date-edit').setAttribute('min', today);
 function initDisplay() {
     window.addEventListener('DOMContentLoaded', () => {
         const homeBtn = document.querySelector('.home');
+        const aboutBtn = document.querySelector('.about');
         const tasksDiv = document.querySelector('.tasks-div');
         const h1 = document.createElement('h1');
         const p = document.createElement('p');
@@ -45,9 +46,16 @@ function initDisplay() {
             tasksDiv.appendChild(h1);
             tasksDiv.appendChild(p);
         })
-        displayProject();
         showProjects();
+        displayProject();
+        aboutBtn.addEventListener('click', () => {
+            const tasksDiv = document.querySelector('.tasks-div');
+            tasksDiv.innerHTML = `<h2>About</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere ratione delectus perspiciatis. Accusantium rerum officia atque harum possimus! Quisquam, facere eum magni quasi sapiente doloremque officia. Exercitationem itaque debitis quibusdam. Quisquam quod in labore aperiam enim veniam excepturi laboriosam at.</p> <br>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere ratione delectus perspiciatis. Accusantium rerum officia atque harum possimus! Quisquam, facere eum magni quasi sapiente doloremque officia. Exercitationem itaque debitis quibusdam. Quisquam quod in labore aperiam enim veniam excepturi laboriosam at.</p>`;
+        })
     })
+
 }
 
 function showProjects() {
